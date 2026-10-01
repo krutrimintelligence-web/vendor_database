@@ -60,6 +60,8 @@ def remove(vid):
 rows = run("SELECT * FROM vendors ORDER BY category, name")
 cats = sorted({r["category"] for r in rows})
 digits = lambda s: re.sub(r"\D", "", s or "")
+if st.query_params.get("debug") == "1":
+    st.info(f"DB: {engine().dialect.name} | vendors loaded: {len(rows)}")
 
 st.title("📒 Vendor Directory")
 t_search, t_stats, t_admin = st.tabs(["🔍 Search", "📊 By type", "🔐 Admin"])
